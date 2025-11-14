@@ -1,3 +1,6 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@plugin "flowbite/plugin";
+@import "tailwindcss";
+@source "../**/*.blade.php";
+@source "../**/*.{js,jsx,ts,tsx,vue}";
+@source "../../storage/framework/views/*.php";
+@source "./node_modules/flowbite/**/*.js";

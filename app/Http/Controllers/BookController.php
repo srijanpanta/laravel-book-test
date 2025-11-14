@@ -24,7 +24,9 @@ class BookController extends Controller
                 ->orWhere('tags', 'like', "%{$searchTerm}%");
         }
 
-        $books = $query->get();
+       $books = $query->orderBy('created_at', 'desc')
+               ->paginate(10)
+               ->withQueryString();
 
         return Inertia::render('Books/Index', [
             'books' => $books,
