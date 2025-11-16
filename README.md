@@ -68,12 +68,15 @@ php artisan key:generate
 ```
 
 Configure Database by updating .env
+
+```bash
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_DATABASE=laravel_book_test
 DB_USERNAME=root
 DB_PASSWORD=
+```
 
 4. Run Migrations and Seeders
 
@@ -121,10 +124,10 @@ Visit http://localhost:8000 to access the application.
 php artisan test --filter=BookControllerUnitTest
 ```
 This will run the unit tests for the BookController API operations. It covers
-i.  Creating a book
-ii. Updating a book
-iii.Deleting a book
-iv. Showing a book
+1. Creating a book
+2. Updating a book
+3. Deleting a book
+4. Showing a book
 
 #   Frontend Notes
 SPA-like experience using Inertia.js and Vue 3.
@@ -135,6 +138,7 @@ Profile dropdown and logout for authenticated users.
 
 # Author
 Srijan Panta
+
 GitHub: github.com/SrijanPanta
 
 # License
