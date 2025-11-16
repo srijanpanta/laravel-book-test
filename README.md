@@ -49,7 +49,7 @@ It allows users to browse, search, filter, add, edit, and delete books in a clea
 1. Clone the repository:
 
 ```bash
-git clone <your-repo-url>
+git clone https://github.com/srijanpanta/laravel-book-test.git
 cd laravel-book-test
 ```
 
@@ -97,4 +97,46 @@ php artisan serve
 7. Access the Application
 Visit http://localhost:8000 to access the application.
 
+##  Database Schema
+| Column      | Type      | Description          |
+| ----------- | --------- | -------------------- |
+| id          | bigint    | Primary Key          |
+| title       | string    | Book title           |
+| author      | string    | Author name          |
+| description | text      | Book description     |
+| tags        | JSON      | Array of tags        |
+| image       | string    | Book cover filename  |
+| created_at  | timestamp | Record creation time |
+| updated_at  | timestamp | Record update time   |
+
+##  API Endpoints
+1.  GET /books - List books (pagination & search supported)
+2.  GET /books/{book} - Show a specific book
+3.  POST /books - Create a new book (authenticated)
+4.  PUT /books/{book} - Update an existing book (authenticated)
+5.  DELETE /books/{book} - Delete a book (authenticated)
+
+##   Unit Testing
+```bash
+php artisan test --filter=BookControllerUnitTest
+```
+This will run the unit tests for the BookController API operations. It covers
+i.  Creating a book
+ii. Updating a book
+iii.Deleting a book
+iv. Showing a book
+
+#   Frontend Notes
+SPA-like experience using Inertia.js and Vue 3.
+Responsive Tailwind CSS design.
+Modals for book viewing, creating, and editing.
+Smooth scrolling to book section on search or pagination.
+Profile dropdown and logout for authenticated users.
+
+# Author
+Srijan Panta
+GitHub: github.com/SrijanPanta
+
+# License
+This project is for educational purposes and part of a technical test.
 
