@@ -19,6 +19,8 @@ BookApp is a one-page web application built with **Laravel 12**, **Inertia.js**,
 It allows users to browse, search, filter, add, edit, and delete books in a clean and responsive interface. Authenticated users can manage books while guests can explore the collection.
 
 ## Public Demo Link
+Hosted in Digital Ocean
+
 http://209.97.129.168/books
 
 ---
