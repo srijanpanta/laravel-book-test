@@ -130,11 +130,11 @@ This will run the unit tests for the BookController API operations. It covers
 4. Showing a book
 
 #   Frontend Notes
-SPA-like experience using Inertia.js and Vue 3.
-Responsive Tailwind CSS design.
-Modals for book viewing, creating, and editing.
-Smooth scrolling to book section on search or pagination.
-Profile dropdown and logout for authenticated users.
+1.  SPA-like experience using Inertia.js and Vue 3.
+2.  Responsive Tailwind CSS design.
+3.  Modals for book viewing, creating, and editing.
+4.  Smooth scrolling to book section on search or pagination.
+5.  Profile dropdown and logout for authenticated users.
 
 # Author
 Srijan Panta
