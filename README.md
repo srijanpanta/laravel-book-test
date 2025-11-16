@@ -67,7 +67,7 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Configure Database by updating .env
+Configure Database by updating `.env` file:
 
 ```bash
 DB_CONNECTION=mysql
