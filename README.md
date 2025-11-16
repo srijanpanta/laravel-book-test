@@ -51,18 +51,21 @@ It allows users to browse, search, filter, add, edit, and delete books in a clea
 ```bash
 git clone <your-repo-url>
 cd laravel-book-test
+```
 
 2. Install PHP dependencies via Composer:
 
 ```bash
 composer install
 npm install
+```
 
 3. Setup Environment Variables
 
 ```bash
 cp .env.example .env
 php artisan key:generate
+```
 
 Configure Database by updating .env
 DB_CONNECTION=mysql
@@ -76,17 +79,20 @@ DB_PASSWORD=
 
 ```bash
 php artisan migrate --seed
+```
 
 5. Build Front-end Assets
 
 ```bash
 npm run build
 npm run dev
+```
 
 6. Start the Development Server
 
 ```bash
 php artisan serve 
+```
 
 7. Access the Application
 Visit http://localhost:8000 to access the application.
