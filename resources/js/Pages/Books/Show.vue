@@ -1,5 +1,7 @@
 <script setup>
 import { defineProps, defineEmits } from 'vue'
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { faImage } from '@fortawesome/free-solid-svg-icons'
 
 const props = defineProps({
   book: Object,
@@ -17,17 +19,34 @@ function handleEdit() {
 function handleDelete() {
   if (!confirm(`Delete "${props.book.title}"?`)) return
   emit('delete', props.book)
+  emit('close')
+}
+
+// Tag colors
+const tagColors = [
+  'bg-purple-100 dark:bg-purple-700 text-purple-800 dark:text-purple-200',
+  'bg-green-100 dark:bg-green-700 text-green-800 dark:text-green-200',
+  'bg-blue-100 dark:bg-blue-700 text-blue-800 dark:text-blue-200',
+  'bg-yellow-100 dark:bg-yellow-700 text-yellow-800 dark:text-yellow-200',
+  'bg-pink-100 dark:bg-pink-700 text-pink-800 dark:text-pink-200',
+  'bg-indigo-100 dark:bg-indigo-700 text-indigo-800 dark:text-indigo-200',
+  'bg-red-100 dark:bg-red-700 text-red-800 dark:text-red-200',
+]
+
+function getTagColor(tag) {
+  const index = tag.toLowerCase().charCodeAt(0) % tagColors.length
+  return tagColors[index]
 }
 </script>
 
 <template>
   <Transition name="fade" appear>
-    <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center px-4">
+    <div v-if="show" class="fixed inset-0 z-50 flex items-center justify-center px-4 md:px-0">
       
       <!-- Overlay -->
       <Transition name="fade" appear>
         <div
-          class="absolute inset-0 bg-black/50"
+          class="absolute inset-0 bg-black/60"
           @click="$emit('close')"
         ></div>
       </Transition>
@@ -35,39 +54,64 @@ function handleDelete() {
       <!-- Modal content -->
       <Transition name="pop" appear>
         <div
-          class="relative bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-4xl overflow-hidden flex flex-col md:flex-row transform transition-transform duration-300 z-10"
+          class="relative bg-white dark:bg-gray-900 rounded-3xl shadow-2xl w-full max-w-4xl h-[550px] md:h-[500px] overflow-hidden flex flex-col md:flex-row transform transition-transform duration-300 z-10 border border-gray-200 dark:border-gray-700"
         >
           <!-- Book Image -->
-          <div class="md:w-1/3 w-full h-96 flex-shrink-0">
-            <img
-              :src="book.image ? `/images/${book.image}` : '/images/placeholder.png'"
-              :alt="book.title"
-              class="w-full h-full object-cover"
-            />
+          <div class="w-full md:w-1/3 h-48 md:h-full flex-shrink-0 overflow-hidden flex items-center justify-center bg-gray-100 dark:bg-gray-800">
+            <template v-if="book.image">
+              <img
+                :src="`storage/images/${book.image}`"
+                :alt="book.title"
+                class="w-full h-full object-cover object-center"
+              />
+            </template>
+            <template v-else>
+              <FontAwesomeIcon :icon="faImage" class="text-gray-400 dark:text-gray-500 text-6xl md:text-8xl" />
+            </template>
           </div>
 
           <!-- Book Details -->
-          <div class="md:w-2/3 w-full p-6 flex flex-col justify-between">
+          <div class="w-full md:w-2/3 p-6 md:p-8 flex flex-col justify-between overflow-y-auto">
             <div>
-              <h2 class="text-3xl font-bold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
+              <h2 class="text-2xl md:text-4xl font-extrabold mb-2 text-transparent bg-clip-text bg-gradient-to-r from-purple-600 to-blue-500">
                 {{ book.title }}
               </h2>
-              <p class="text-sm text-gray-600 dark:text-gray-300 mb-4">by {{ book.author }}</p>
-              <p class="text-gray-700 dark:text-gray-200 mb-4">{{ book.description }}</p>
-              <p v-if="book.tags" class="text-sm text-gray-500 dark:text-gray-400">
-                <span class="font-semibold">Tags:</span> {{ book.tags }}
+              <p class="text-sm md:text-lg text-gray-600 dark:text-gray-300 mb-4 italic">by {{ book.author }}</p>
+              <p class="text-gray-700 dark:text-gray-200 mb-4 leading-relaxed text-sm md:text-base">
+                {{ book.description }}
               </p>
+
+              <div v-if="book.tags?.length" class="flex flex-wrap gap-2 mt-2">
+                <span
+                  v-for="tag in book.tags"
+                  :key="tag"
+                  :class="getTagColor(tag) + ' px-3 py-1 rounded-full text-xs md:text-sm font-medium'"
+                >
+                  {{ tag }}
+                </span>
+              </div>
             </div>
 
             <!-- Buttons -->
-            <div class="mt-6 flex flex-wrap justify-end gap-3">
-              <button v-if="auth?.user" @click="handleEdit" class="px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold hover:from-purple-700 hover:to-blue-600 transition">
+            <div class="mt-6 flex flex-wrap justify-end gap-2 md:gap-3">
+              <button
+                v-if="auth?.user"
+                @click="handleEdit"
+                class="px-4 md:px-5 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-blue-500 text-white font-semibold hover:from-purple-700 hover:to-blue-600 transition shadow-md hover:shadow-lg text-sm md:text-base"
+              >
                 Edit
               </button>
-              <button v-if="auth?.user" @click="handleDelete" class="px-5 py-2 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition">
+              <button
+                v-if="auth?.user"
+                @click="handleDelete"
+                class="px-4 md:px-5 py-2 rounded-xl bg-red-600 text-white font-semibold hover:bg-red-700 transition shadow-md hover:shadow-lg text-sm md:text-base"
+              >
                 Delete
               </button>
-              <button @click="$emit('close')" class="px-5 py-2 rounded-xl bg-gray-300 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold hover:bg-gray-400 dark:hover:bg-gray-600 transition">
+              <button
+                @click="$emit('close')"
+                class="px-4 md:px-5 py-2 rounded-xl bg-gray-200 dark:bg-gray-700 text-gray-800 dark:text-gray-200 font-semibold hover:bg-gray-300 dark:hover:bg-gray-600 transition text-sm md:text-base"
+              >
                 Close
               </button>
             </div>

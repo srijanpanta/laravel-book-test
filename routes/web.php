@@ -12,24 +12,17 @@ use Inertia\Inertia;
 |--------------------------------------------------------------------------
 */
 
-// Landing page
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Landing page → now shows books page
+Route::get('/', [BookController::class, 'index'])->name('home');
 
-Route::get('/dashboard', function () {
-    return redirect()->route('books.index');
-})->middleware(['auth', 'verified'])->name('dashboard');
-
-// Books index and show pages accessible to guests
+// Optional: keep /books route as well for direct access
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');
 
+// Dashboard redirect
+Route::get('/dashboard', function () {
+    return redirect()->route('books.index');
+})->middleware(['auth', 'verified'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
