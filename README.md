@@ -81,27 +81,32 @@ DB_DATABASE=laravel_book_test
 DB_USERNAME=root
 DB_PASSWORD=
 ```
+4. Create a storage link for images
 
-4. Run Migrations and Seeders
+```bash
+php artisan storage:link
+```
+
+5. Run Migrations and Seeders
 
 ```bash
 php artisan migrate --seed
 ```
 
-5. Build Front-end Assets
+6. Build Front-end Assets
 
 ```bash
 npm run build
 npm run dev
 ```
 
-6. Start the Development Server
+7. Start the Development Server
 
 ```bash
 php artisan serve 
 ```
 
-7. Access the Application
+8. Access the Application
 Visit http://localhost:8000 to access the application.
 
 ##  Database Schema
